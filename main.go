@@ -64,9 +64,16 @@ func main() {
 			if err != nil {
 				log.Error().Err(err).Msgf("Failed to run image blurring script")
 			}
+
 			err = uploadResult(minioClient, image)
 			if err != nil {
 				log.Error().Err(err).Msg("Failed to put image to bucket")
+				continue
+			}
+
+			err = deleteFile(minioClient, image)
+			if err != nil {
+				log.Error().Err(err).Msg("Failed to delete image")
 				continue
 			}
 

@@ -51,3 +51,7 @@ func downloadFile(minioClient *minio.Client, image *Image) (string, error) {
 	}
 	return filePath, nil
 }
+
+func deleteFile(client *minio.Client, image *Image) error {
+	return client.RemoveObject(context.Background(), readBucket, image.Name, minio.RemoveObjectOptions{})
+}
