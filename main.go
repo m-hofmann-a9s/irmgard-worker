@@ -35,6 +35,7 @@ func main() {
 
 	msgs, conn, err := SetupRabbitMq(mqUsername, mqPassword, mqEndpoint)
 	defer conn.Close()
+
 	if err != nil {
 		failOnError(err, "Failed to set up rabbitmq connection")
 	}
@@ -89,11 +90,7 @@ func main() {
 func runBlurringScript(filePath string) error {
 	cmd := exec.Command("python3", "yolo_opencv.py", "--image", filePath, "--config", "yolov3.cfg",
 		"--weights", "yolov3.weights", "--classes", "yolov3.txt")
-	err := cmd.Run()
-	if err != nil {
-		return err
-	}
-	return nil
+	return cmd.Run()
 }
 
 // Image represents an image.

@@ -40,10 +40,7 @@ func SetupObjectStorage(minioEndpoint string, minioAccessKeyID string, minioSecr
 
 func uploadResult(minioClient *minio.Client, image *Image) error {
 	_, err := minioClient.FPutObject(context.Background(), writeBucket, image.StorageLocation, outputFilePath, minio.PutObjectOptions{})
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
 
 func downloadFile(minioClient *minio.Client, image *Image) (string, error) {
